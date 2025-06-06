@@ -1,35 +1,45 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meine persönliche Startseite</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Neo Dijkstra</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Willkommen auf meiner Seite!</h1>
-    <p>Ich bin Neo, angehender Informatiker EFZ.</p>
+    <div class="menu">☰ menu</div>
+    <div class="search">
+      <input type="text" placeholder="Search">
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Über mich</h2>
-      <p>Ich interessiere mich für KI, Games und Webentwicklung</p>
+  <section class="hero">
+    <div class="profile-image">images?</div>
+    <h1>Neo Dijkstra</h1>
+  </section>
+
+  <section class="intro">
+    <p>short intro text about myself</p>
+  </section>
+
+  <main class="main-content">
+    <section class="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-card"></div>
+        <div class="project-card"></div>
+        <div class="project-card"></div>
+        <div class="project-card"></div>
+      </div>
     </section>
 
-    <section>
-      <h2>Meine Lieblingslinks</h2>
-      <ul>
-        <li><a href="https://www.github.com" target="_blank">GitHub</a></li>
-        <li><a href="https://www.w3schools.com" target="_blank">W3Schools</a></li>
-        <li><a href="https://www.wikipedia.org" target="_blank">Wikipedia</a></li>
-      </ul>
-    </section>
+    <aside class="chat">
+      <h2>LLM Chat</h2>
+    </aside>
   </main>
 
   <footer>
-    <p>© 2025 NeoDijkstra</p>
+    FOOTER
   </footer>
 </body>
 </html>
