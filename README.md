@@ -11,3 +11,6 @@ Hier noch ein Bild von mein Mockup:
 - [ ] Farben im CSS machen
 - [ ] Subpages für die Projekte
 - [ ] Bilder implementieren.
+
+Farbschema: base black, base gray, green.
+Hex codes: #1A1A1A, #303030, #00FF00
