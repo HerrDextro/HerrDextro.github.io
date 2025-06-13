@@ -11,6 +11,17 @@ body {
   padding: 1rem;
 }
 
+canvas#matrixCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Push canvas behind everything */
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+
 
 header {
   display: flex;
@@ -111,3 +122,33 @@ footer {
     margin-bottom: 15px;
 }
 
+
+/*SmartPainter specific styles*/
+.project-page {
+            background-image: url(resources/smartPainter.png);
+            text-align: center;
+            padding: 100px 20px;
+            color: white;
+            background-size: cover; /* Ensures the background image covers the entire container */
+            background-position: center; /* Centers the background image horizontally and vertically */
+            height: auto; /* Allows the background image to maintain its original aspect ratio */
+            min-height: 250px;
+            max-height: 300px;
+}
+
+/*llmTicTacToe specific styles*/
+.project-page {
+            background-image: url(resources/smartPainter.png);
+            text-align: center;
+            padding: 100px 20px;
+            color: white;
+            background-size: cover; /* Ensures the background image covers the entire container */
+            background-position: center; /* Centers the background image horizontally and vertically */
+            height: auto; /* Allows the background image to maintain its original aspect ratio */
+            min-height: 250px;
+            max-height: 300px;
+}
+/*llmGameAgent specific styles*/
+/*gemmaReasoner specific styles*/
+
+    
