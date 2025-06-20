@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+:root{
+  --base-black-color: #1A1A1A;
+  --base-gray-color: #303030;
+  --green-color:  #00FF00;
+  --white-color: #FFFFFF;
+}
+
+body {
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.menu {
+  background: var(--base-gray-color);
+  padding: 0.5rem;
+}
+
+.search input {
+  padding: 0.5rem;
+  background: var(--base-gray-color);
+  border: none;
+  color: white;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.project-image-box{
+  /* responsive width */
+  width: 100%;                /* takes full line width */
+  max-width: 900px;           /* optional cap */
+  max-height: 300px;
+
+  /* keep aspect ratio no matter what */
+  aspect-ratio: 16 / 9;       /* or 4/3, 1/1 … use your real image ratio */
+
+  /* show the picture */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+
+  /* optional extras */
+  border: 1px solid #aaa;
+  margin: 0 auto 2rem;        /* centers + bottom gap */
+}
+
+
+.image-placeholder {
+  font-size: 0.9em;
+  color: #888;
+}
+
+.project-title {
+  margin-top: 10px;
+  font-size: 1.5em;
+}
+
+.intro-text,
+.subsection {
+  margin-bottom: 30px;
+}
+
+.files-section h2 {
+  margin-bottom: 10px;
+}
+
+.file-buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.file-button {
+  background: #111;
+  color: #fff;
+  border: 1px solid #aaa;
+  padding: 15px 25px;
+  cursor: pointer;
+}
+
+.file-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8em;
+  color: #ccc;
+}
+
+.arrow {
+  font-size: 2em;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #222;
+  margin-top: auto;
+}
+
+footer {
+    background-color: var(--base-gray-color);
+    color: white;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    border-bottom: 1px solid var(--green-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
