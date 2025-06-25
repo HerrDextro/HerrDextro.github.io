@@ -93,7 +93,7 @@ async function initWebLLM() {
   
   const modelName = "Qwen1.5-0.5B-chat-q4f32_1";
 
-  const chatEngine = await webllm.createChatModule(); // note the lowercase 'c'
+  const chatEngine = await webllm.chatModule(); // note the lowercase 'c'
   //chatEngine = await webllm.CreateChatModule();
   await chatEngine.reload(modelName);
   console.log("WebLLM ready.");
