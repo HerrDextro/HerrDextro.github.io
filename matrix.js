@@ -90,9 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
 let chatEngine;
 
 async function initWebLLM() {
+  
   const modelName = "Qwen1.5-0.5B-chat-q4f32_1";
 
-  chatEngine = await webllm.CreateChatModule();
+  const chatEngine = await webllm.createChatModule(); // note the lowercase 'c'
+  //chatEngine = await webllm.CreateChatModule();
   await chatEngine.reload(modelName);
   console.log("WebLLM ready.");
 }
