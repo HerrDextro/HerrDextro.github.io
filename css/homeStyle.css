@@ -37,10 +37,42 @@ header {
   margin-bottom: 1rem;
 }
 
-.menu {
+/*start of menu CSS*/
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
   background: var(--base-gray-color);
   padding: 0.5rem;
+  cursor: pointer;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--base-gray-color);
+  border: 1px solid #444;
+  display: none;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 1rem;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.dropdown-menu a:hover {
+  background: var(--green-color);
+  color: black;
+}
+
+/*end of menu CSS*/
+
 
 .search input {
   padding: 0.5rem;
@@ -77,6 +109,7 @@ header {
 .projects {
   flex: 2;
 }
+
 
 .project-grid {
   display: grid;
@@ -130,8 +163,69 @@ footer {
 }
 
 
+/* ----- Responsive tweaks ----- */
 
+@media (max-width: 768px) {
+  /*header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }*/ /*Test header*/
 
+  .main-content {
+    flex-direction: column;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search input {
+    width: 100%;
+  }
+
+  .menu-button {
+    width: 100%;
+    text-align: left;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    position: static;
+    border: none;
+  }
+
+  .dropdown-menu a {
+    border-bottom: none;
+    padding: 0.75rem;
+  }
+
+  .chat {
+    order: 2;
+  }
+}
+/*WebLLM*/
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#userInput {
+  padding: 0.5rem;
+  width: 100%;
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+}
+
+#chatOutput {
+  background: #111;
+  padding: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+}
 
 
 

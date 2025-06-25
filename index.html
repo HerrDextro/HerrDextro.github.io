@@ -3,41 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <title>Neo Dijkstra</title>
-  <link rel="stylesheet" href="..\homeStyle.css">
-  <link rel="icon" href="..\resources\brain.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./css/homeStyle.css">
+  <!--WebLLM integration-->
+  <script type="module">
+  import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
+  window.webllm = webllm;
+</script>
+
+
 </head>
 <body>
   <canvas id="matrixCanvas"></canvas>
   <header>
-    <div class="menu">☰ menu</div>
+    <div class="menu-container">
+  <div class="menu-button" onclick="toggleMenu()">☰ Menu</div>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="HTML/smartPainterGames.html">SmartPainter</a>
+    <a href="HTML/llmTicTacToe.html">TicTacToe AI</a>
+    <a href="HTML/llmGameAgent.html">Game Agent</a>
+    <a href="HTML/gemmaReasoner.html">Gemma2 Reasoner</a>
+  </div>
+</div>
     <div class="search">
       <input type="text" placeholder="Search">
     </div>
   </header>
 
   <section class="identity">
-    <div class="profile-image">images?</div>
-    <h1>Neo Dijkstra</h1>
+    <!--<div class="profile-image">images?</div>-->
+    <h1>My digital home</h1>
   </section>
 
   <section class="intro">
-    <p>Hi, im Neo Dijkstra, an aspiring developer. I like developing Games and everything AI related.</p>
+    <div>This is a small site where I just keep my projects. Evidently so its also one I used to experiment with, and just nerd around a little....Hope you enjoy.</div>
   </section>
 
   <main class="main-content">
     <section class="projects">
-      <h2>Projects</h2>
-      <div class="project-grid">
-        <div class="project-card" onclick="navigateToTopic('HTML\\smartPainterGames')">Smart Painter Games</div>
-        <div class="project-card" onclick="navigateToTopic('HTML\\llmTicTacToe')">LLM reasoner TicTacToe</div>
-        <div class="project-card" onclick="navigateToTopic('HTML\\llmGameAgent')">LLM game agent</div>
-        <div class="project-card" onclick="navigateToTopic('HTML\\gemmaReasoner')">Gemma2 Reasoner</div>
-      </div>
-    </section>
+  <h2>Projects</h2> 
+  <div class="project-grid">
+    <div class="project-card searchable" onclick="navigateToTopic('HTML/smartPainterGames')">Smart Painter Games</div>
+    <div class="project-card searchable" onclick="navigateToTopic('HTML/llmTicTacToe')">LLM reasoner TicTacToe</div>
+    <div class="project-card searchable" onclick="navigateToTopic('HTML/llmGameAgent')">LLM game agent</div>
+    <div class="project-card searchable" onclick="navigateToTopic('HTML/gemmaReasoner')">Gemma2 Reasoner</div>
+  </div>
+</section>
 
     <aside class="chat">
-      <h2>LLM Chat</h2>
-    </aside>
+  <h2>LLM Chat</h2>
+  <textarea id="userInput" placeholder="Ask me anything..."></textarea>
+  <button onclick="sendMessage()">Send</button>
+  <div id="chatOutput"></div>
+</aside>
+
     
 
 
@@ -49,7 +68,7 @@
             <div class="footer-section">
                 <h3>Contact me:</h3>
                 <p><a href="mailto:neo@dijkstras.net">neo@dijkstras.net</a></p>
-                <p><a href="tel:+41 76 831 09 73">+41 76 831 09 73</a></p>
+                <p><a href="tel:+41768310973">+41768310973</a></p>
                 
                 
             </div>
@@ -62,18 +81,5 @@
         </div>
     </footer>
 
-  <section class="note">
-    <pre>My personal do's and dont's of page design:
-Do’s:	                                 Dont’s:
--Brittney chian clean style +animations	-Weird color combinations (JakeArchibald)
--Straight to the point	                -make too much stuff collapsible (lose oversight)
--Offer more on request (collapsible?)	-Much content w/o structure or indicatos
-
-colors: base black, base gray, green.
-Hex codes: #1A1A1A, #303030, #00FF00
-</pre>
-  </section>
-
-  <script src="..\matrix.js"></script>
 </body>
 </html>

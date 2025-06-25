@@ -3,20 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project Page</title>
-  <link rel="stylesheet" href="..\subStyle.css">
+  <title>smartPainterGames</title>
+  <link rel="stylesheet" href="../css/subStyle.css">
+  <script src="../matrix.js"></script>
 </head>
-<body>
+<body class="subpage">
 
   <header>
-    <div class="menu">☰ menu</div>
+    <div class="menu-container">
+  <div class="menu-button" onclick="toggleMenu()">☰ Menu</div>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="../index.html">Home</a>
+    <a href="../HTML/smartPainterGames.html">SmartPainter</a>
+    <a href="../HTML/llmTicTacToe.html">TicTacToe AI</a>
+    <a href="../HTML/llmGameAgent.html">Game Agent</a>
+    <a href="../HTML/gemmaReasoner.html">Gemma2 Reasoner</a>
+  </div>
+</div>
+    
     <div class="search">
       <input type="text" placeholder="Search">
     </div>
   </header>
 
   <main class="content">
-    <section class="project-image-box" style="background-image: url('../resources/smartPainter.png');">
+    <section class="project-image-box" style="background-image: url('../resources/smartPainter.png');"><!-- alt="SmartPainter StartUp logo (Erstellt von Neo Dijkstra)-->
 </section>
 
 
@@ -25,17 +36,13 @@
     </section>
 
     <section class="files-section">
-      <h2>Files</h2>
-      <div class="file-buttons">
-        <button class="file-button">DevDoc</button>
-        <button class="file-button">UserDoc</button>
-        <button class="file-button">Assets</button>
-        <div class="file-more">
-          <span class="arrow">➤</span>
-          <small>more...</small>
-        </div>
-      </div>
-    </section>
+  <h2>Files</h2>
+  <div class="file-buttons">
+    <a class="file-button" href="../resources/files_download/README.md" download>DevDoc</a>
+    <a class="file-button" href="../resources/files_download/Dokumentation_SmartPainter.docx" download>UserDoc</a>
+    <a class="file-button" href="../resources/files_download/Lern-Periode-7.zip" download>Assets</a>
+  </div>
+</section>
 
     <section class="subsection">
       <h2>Subtitle</h2>
@@ -53,7 +60,7 @@
             <div class="footer-section">
                 <h3>Contact me:</h3>
                 <p><a href="mailto:neo@dijkstras.net">neo@dijkstras.net</a></p>
-                <p><a href="tel:+41 76 831 09 73">+41 76 831 09 73</a></p>
+                <p><a href="tel:+41768310973">+41 76 831 09 73</a></p>
                 
                 
             </div>

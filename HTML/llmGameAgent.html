@@ -3,22 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project Page</title>
-  <link rel="stylesheet" href="..\subStyle.css">
+  <title>smartPainterGames</title>
+  <link rel="stylesheet" href="..\css\subStyle.css">
+  <script src="..\matrix.js"></script>
 </head>
-<body>
+<body class="subpage">
 
   <header>
-    <div class="menu">☰ menu</div>
+    <div class="menu-container">
+  <div class="menu-button" onclick="toggleMenu()">☰ Menu</div>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="..\index.html">Home</a>
+    <a href="..\HTML/smartPainterGames.html">SmartPainter</a>
+    <a href="..\HTML/llmTicTacToe.html">TicTacToe AI</a>
+    <a href="..\HTML/llmGameAgent.html">Game Agent</a>
+    <a href="..\HTML/gemmaReasoner.html">Gemma2 Reasoner</a>
+  </div>
+</div>
+
     <div class="search">
       <input type="text" placeholder="Search">
     </div>
   </header>
 
   <main class="content">
-    <section class="project-image-box">
-      <p class="image-placeholder">Project image</p>
-      <h1 class="project-title">Project Title</h1>
+    <section class="project-image-box" style="background-image: url('../resources/GameAgent_provisional_img.jpg'); " alt="Programm flowchart of AI Agent (Erstellt von Neo Dijkstra)"></section>
+
+      <h1 class="project-title">AI Game Agent for STALKER</h1>
     </section>
 
     <section class="intro-text">

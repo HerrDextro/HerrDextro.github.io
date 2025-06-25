@@ -2,10 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 
-:root{
+ :root{
   --base-black-color: #1A1A1A;
   --base-gray-color: #303030;
   --green-color:  #00FF00;
@@ -13,9 +12,25 @@
 }
 
 body {
-  background-color: #111;
-  color: #fff;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: var(--base-black-color);
+  color: white;
+  padding: 1rem;
+}
+
+/*canvas#matrixCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; 
+  pointer-events: none; 
+}*/
+
+/*hides search bar on subpages where I dont need it*/
+.subpage header .search {
+  display: none;
 }
 
 header {
@@ -25,10 +40,41 @@ header {
   margin-bottom: 1rem;
 }
 
-.menu {
+/*start of menu CSS*/
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
   background: var(--base-gray-color);
   padding: 0.5rem;
+  cursor: pointer;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--base-gray-color);
+  border: 1px solid #444;
+  display: none;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 1rem;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.dropdown-menu a:hover {
+  background: var(--green-color);
+  color: black;
+}
+
+/*end of menu CSS*/
 
 .search input {
   padding: 0.5rem;
@@ -41,25 +87,23 @@ header {
   margin-top: 20px;
 }
 
-.project-image-box{
-  /* responsive width */
-  width: 100%;                /* takes full line width */
-  max-width: 900px;           /* optional cap */
-  max-height: 300px;
+.project-image-box {
+  width: 100%;
+  max-width: 1000px;          /* wider cap */
+  aspect-ratio: auto;         /* remove strict aspect ratio */
+  min-height: 300px;          /* allow for vertical space */
+  height: auto;
 
-  /* keep aspect ratio no matter what */
-  aspect-ratio: 16 / 9;       /* or 4/3, 1/1 … use your real image ratio */
-
-  /* show the picture */
-  background-size: contain;
+  background-size: cover;     /* fills the box more naturally */
   background-repeat: no-repeat;
   background-position: center;
 
-
-  /* optional extras */
   border: 1px solid #aaa;
-  margin: 0 auto 2rem;        /* centers + bottom gap */
+  border-radius: 10px;
+  margin: 1rem auto;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
 }
+
 
 
 .image-placeholder {
