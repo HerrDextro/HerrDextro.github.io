@@ -86,33 +86,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-//WebLLM integration (all gpt tho lol)
-let chatEngine;
-
-async function initWebLLM() {
-  
-  const modelName = "Qwen1.5-0.5B-chat-q4f32_1";
-
-  const chatEngine = await webllm.chatModule(); // note the lowercase 'c'
-  //chatEngine = await webllm.CreateChatModule();
-  await chatEngine.reload(modelName);
-  console.log("WebLLM ready.");
-}
-
-async function sendMessage() {
-  const input = document.getElementById("userInput").value;
-  const output = document.getElementById("chatOutput");
-
-  if (!chatEngine) {
-    output.innerHTML += `<p><strong>System:</strong> LLM not ready yet.</p>`;
-    return;
-  }
-
-  const reply = await chatEngine.chat(input);
-  output.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
-  output.innerHTML += `<p><strong>LLM:</strong> ${reply}</p>`;
-  document.getElementById("userInput").value = "";
-}
-
-window.addEventListener("DOMContentLoaded", initWebLLM);
-//adding another comment to wake this up

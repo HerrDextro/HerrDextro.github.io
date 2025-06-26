@@ -7,10 +7,18 @@
   <script src="matrix.js"></script>
   <link rel="icon" href="resources/NeoMatrix2.ico" type="image/x-icon">
   <!--WebLLM integration-->
-  <script type="module">
-  import * as webllm from "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm";
-  window.webllm = webllm;
-  console.log(webllm);
+  
+    <script type="module" src="chat_init.mjs"></script>
+
+  /*import { init, chat } from 'https://cdn.jsdelivr.net/npm/webllm@latest';
+
+  async function main() {
+    const model = await init('Llama-3-8B');
+    const response = await chat(model, 'What is WebLLM?');
+    console.log(response);
+  }
+
+  main();*/
 </script>
 
 
@@ -55,10 +63,28 @@
 </section>
 
     <aside class="chat">
-  <h2>LLM Chat</h2>
-  <textarea id="userInput" placeholder="Ask me anything..."></textarea>
-  <button onclick="sendMessage()">Send</button>
-  <div id="chatOutput"></div>
+ <p>
+      Initialize WebLLM and Download Model
+    </p>
+    <div class="download-container">
+      <select id="model-selection"></select>
+      <button id="download">
+        Download
+      </button>
+    </div>
+    <p id="download-status" class="hidden"></p>
+
+    <p>
+      Chat
+    </p>
+    <div class="chat-container">
+      <div id="chat-box" class="chat-box"></div>
+      <div id="chat-stats" class="chat-stats hidden"></div>
+      <div class="chat-input-container">
+        <input type="text" id="user-input" placeholder="Type a message..." />
+        <button id="send" disabled>Send</button>
+      </div>
+    </div>
 </aside>
 
     
