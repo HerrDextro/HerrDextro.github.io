@@ -19,7 +19,11 @@ Hex codes: #1A1A1A, #303030, #00FF00
 ## Zusammenfassung 13.06.2025
 Heute habe ich die Subpages erstellt, ein Farbschema ausgewählt und das CSS so angepasst, dass die Homepage auch so aussieht. Die Subpages haben noch kein content, aber das kann ich dann eher am Ende machen. Ich habe auch der Hintergrund zu ein dynamisch generiertes Matrix code pattern gemacht, da ich Neo heisse und ich es sehr lustig finde meine Seite so persönlich zu machen.
 
-# Arbeitspakete für 20.06.2025
-- [ ] Subpages Layout HTML
-- [ ] CSS Datei für Subpage specific CSS
-- [ ] Gemini API für chat
+# Arbeitspakete für 20/27.06.2025
+- [x] Subpages Layout HTML
+- [x] CSS Datei für Subpage specific CSS
+- [ ] Gemini API für chat (gestrichen: in favor of WebLLM)
+- [x] WebLLM integration
+- [x] responsiveness
+
+
