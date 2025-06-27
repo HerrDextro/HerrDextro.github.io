@@ -1,0 +1,253 @@
+
+<!-- saved from url=(0030)https://superfromnd.gitlab.io/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Super's Cool Website for Rad Nerds</title>
+    <meta name="og:title" content="Super&#39;s Cool Website for Rad Nerds">
+    <meta name="og:description" content="Rad nerds only.">
+    <meta property="og:image" content="https://superfromnd.gitlab.io/img/icon.png">
+    <meta name="theme-color" content="#90da72">
+    <link rel="shortcut icon" type="image/png" href="https://superfromnd.gitlab.io/img/icon.png">
+	<link rel="stylesheet" type="text/css" href="./Super&#39;s Cool Website for Rad Nerds_files/stylesheet.css">
+<style>
+    #beta {
+        vertical-align: text-top;
+    }
+
+    .box {
+        border: 1px solid green;
+        width: 305px;
+        height: 60px;
+        margin: 2px;
+        padding: 2px;
+        text-align: left;
+        display: inline-flex;
+    }
+	
+    .box-wide {
+        width: 627px;
+    }
+
+    .box img {
+        vertical-align: middle;
+    }
+
+    .box-wrapper {
+        margin: auto 0px;
+    }
+	
+	.box-text {
+		font-size: 12px;
+	}
+
+    #subcanvas {
+        display: none;
+    }
+</style></head>
+
+
+<body><center>
+    <canvas id="header" width="640" height="160">This website requires Canvas support to view properly.</canvas>
+</center>
+
+<script src="./Super&#39;s Cool Website for Rad Nerds_files/howler.min.js.Herunterladen"></script>
+<script>
+// minified header game thing
+var mousePos,canvas=document.getElementById("header"),ctx=canvas.getContext("2d"),isMuted=0,flashTimer=0,bgY=0,activeObjects=[],spawntimer=0,spawnRate=42,score=0,hiscore=1e3,activeGame=0,hasPlayedGame=0;const overlay=new Image,mute=new Image,stars=new Image,ship1=new Image,ship2=new Image,balloon=new Image,bulletPlayer=new Image,bulletEnemy=new Image,namco=new Image,welcome=new Image;ship1.src="img/ship1.png",ship2.src="img/ship2.png",mute.src="img/muteDisable.png",overlay.src="img/overlay.png",stars.src="img/stars.png",balloon.src="img/balloon.png",bulletPlayer.src="img/bullet.png",bulletEnemy.src="img/bullet2.png",namco.src="img/font.png",welcome.src="img/welcome.gif",ctx.imageSmoothingEnabled=!1;var music=new Howl({src:["./index.mp3"],loop:!0}),shoot=new Howl({src:["./shoot.mp3"]}),eShoot=new Howl({src:["./eShoot.mp3"]}),boom=new Howl({src:["./boom.mp3"]}),death=new Howl({src:["./death.mp3"]});function Bullet(e,t,s){this.x=e,this.y=t,this.t=s,this.name="Bullet",activeObjects.push(this)}function Balloon(e,t,s){this.x=e,this.y=t,this.s=s,this.name="Balloon",this.y>=canvas.height-32&&(this.y=this.y-16-Math.floor(16*Math.random())),32>=this.y&&(this.y=this.y+16+Math.floor(16*Math.random())),activeObjects.push(this)}function Enemy(e,t,s){this.x=e,this.y=t,this.s=s,this.y2=0,this.timer=96,this.name="Enemy",this.y>=canvas.height-32&&(this.y=this.y-16-Math.floor(16*Math.random())),32>=this.y&&(this.y=this.y+16+Math.floor(16*Math.random())),activeObjects.push(this)}function isInside(e,t,s,i,a){return e.x>t&&e.x<t+i&&e.y<s+a&&e.y>s}function isInsideAlternate(e,t,s,i,a,n){return e>s&&e<s+a&&t<i+n&&t>i}function getMousePos(e,t){var s=e.getBoundingClientRect();return{x:t.clientX-s.left,y:t.clientY-s.top}}function fillBitmapText(e,t,s){const i=0|namco.width/8;s|=0;let a=t|=0;for(let t of e){const e="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:                   ".indexOf(t);0<=e&&ctx.drawImage(namco,e%i*8,8*(0|e/i),8,8,a,s,8,8),a+=8}}function flash(){flashTimer--,ctx.fillStyle="rgb("+2.5*flashTimer+","+2.5*flashTimer+","+2.5*flashTimer+")",ctx.globalCompositeOperation="lighter",ctx.fillRect(0,0,canvas.width,canvas.height),ctx.globalCompositeOperation="source-over"}function playerDeath(){death.play(),activeObjects=[],flashTimer=100,activeGame=0}function hiscoreCheck(){score>hiscore&&(hiscore=score)}function engine(){1728<=++bgY&&(bgY=0),ctx.drawImage(stars,0,-bgY),0==activeGame&&(ctx.drawImage(welcome,canvas.width/2-welcome.width/2,canvas.height/2-welcome.height/2),flashTimer>0&&flash()),1==activeGame&&(++spawntimer>=6*(spawnRate-=spawnRate/5e4)&&(spawntimer=0),0==spawntimer%42&&null!=mousePos&&.5<2*Math.random()&&new Enemy(canvas.width+16,Math.floor(Math.random()*canvas.height),2*Math.random()+3),activeObjects.forEach(function(e,t){if(e.draw(),"Bullet"==e.name){if(e.x>=canvas.width+32||-32>e.x)return activeObjects.splice(t,1),delete e.x,void delete e.y;0==e.t&&activeObjects.forEach(function(t,s){"Enemy"==t.name&&(isInside(e,t.x,t.y,32,16)||isInsideAlternate(e.x+8,e.y+8,t.x,t.y,32,16))&&(score+=100,hiscoreCheck(),activeObjects.splice(s,1),delete e.x,delete e.y,boom.play())}),1==e.t&&(isInside(e,20,mousePos.y,32,16)||isInsideAlternate(e.x+8,e.y+8,20,mousePos.y,32,16))&&(activeObjects.splice(t,1),delete e.x,delete e.y,playerDeath())}if("Enemy"==e.name){if(-32>e.x)return activeObjects.splice(t,1),delete e.x,void delete e.y;(isInside(e,20,mousePos.y,32,16)||isInsideAlternate(e.x+32,e.y+16,20,mousePos.y,32,16))&&(activeObjects.splice(t,1),delete e.x,delete e.y,boom.play())}}),void 0!==mousePos&&ctx.drawImage(ship1,20,mousePos.y-ship1.height/2)),ctx.drawImage(overlay,0,0),1==hasPlayedGame&&(fillBitmapText("SCORE",32,8),fillBitmapText(""+score,32,16),fillBitmapText("HISCORE",32,canvas.height-24),fillBitmapText(""+hiscore,32,canvas.height-16)),ctx.drawImage(mute,canvas.width-24,canvas.height-24),requestAnimationFrame(engine)}Bullet.prototype.draw=function(){0==this.t?(this.x+=8,ctx.drawImage(bulletPlayer,this.x,this.y)):(this.x-=8,ctx.drawImage(bulletEnemy,this.x,this.y))},Balloon.prototype.draw=function(){ctx.drawImage(balloon,this.x,this.y),this.x-=this.s},Enemy.prototype.draw=function(){let e=this.y;this.y+=this.y2,ctx.drawImage(ship2,this.x,this.y),this.x-=this.s,this.timer++,96<=this.timer&&(new Bullet(this.x,this.y,1),eShoot.play(),this.timer=0),this.y=e,this.y2=10*Math.cos(this.timer/15)},window.onload=function(){requestAnimationFrame(engine)},canvas.addEventListener("mousemove",function(e){mousePos=getMousePos(canvas,e)}),canvas.addEventListener("mousedown",function(){isInside(mousePos,canvas.width-24,canvas.height-24,16,16)?1==isMuted?(mute.src="img/muteDisable.png",Howler.volume(1),isMuted=0):(mute.src="img/muteEnable.png",Howler.volume(0),isMuted=1):1==activeGame?(shoot.play(),new Bullet(20+ship1.width,mousePos.y-ship1.height/2,0)):(0==flashTimer&&(activeGame=1),hasPlayedGame=1,score=0,spawnRate=42)}),music.play(),mute.src="img/muteEnable.png",Howler.volume(0),isMuted=1;
+</script>
+
+<p class="header">Generators</p>		<!-- ------------------------------------------------------------------------------ -->
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/pride">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/rainbow.gif">
+            <span>Pride Month Image Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/tv">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/tele.gif">
+            <span>TV Rating Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/parental">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/music.gif">
+            <span>Parental Advisory Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/nutrit">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/nutrit.gif">
+            <span>Nutrition Facts Label Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/ikemen-cmdlist">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/ikemen-cmdlist.gif">
+            <span>Ikemen GO Command List Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/daikatana">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/daikatana.gif">
+            <span>Daikatana Ad Generator</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/incident">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/incident.gif">
+            <span>Internet Incident Generator</span> <span class="yellow">(NSFW)</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/livereact">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/livereact.gif">
+            <span>Live Reaction Generator</span>
+        </a>
+    </div>
+</div>
+
+<p class="header">Utilities</p>		<!-- ------------------------------------------------------------------------------ -->
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/scripts">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/typewrtr.gif">
+            <span>Sweet Scriptz</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/satoshapes">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/shapes.gif">
+            <span>Sato Shapes</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/dorawiitext">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/doraemon.gif">
+            <span>Doraemon Wii Text Encoder</span>
+        </a>
+    </div>
+</div>
+
+<p class="header">List of...</p>		<!-- ------------------------------------------------------------------------------ -->
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/bandnames">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/bandnames.gif">
+            <span>Band Names</span> <span class="yellow">(NSFW)</span>
+        </a>
+    </div>
+</div>
+
+<p class="header">Super's Guide to...</p>		<!-- ------------------------------------------------------------------------------ -->
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/vpx">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/vpx.gif">
+            <span>Visual Pinball X VR</span>
+        </a>
+    </div>
+</div>
+
+<p class="header">Miscellaneous</p>		<!-- ------------------------------------------------------------------------------ -->
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/money">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/money.gif">
+            <span>Investment Opportunities</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/musik">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/cd.gif">
+            <span>Juvenile Jamz</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/smileys">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/smiley.gif">
+            <span>The Smiley Collection</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/pizzatime">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/pizza.gif">
+            <span>Spiderman 2 Pizza Theme</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/bigsigns">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/bigsigns.gif">
+            <span>Big Sign Letters for Minecraft</span>
+        </a>
+    </div>
+</div>
+
+<div class="box">
+    <div class="box-wrapper">
+        <a class="box-text" href="https://superfromnd.gitlab.io/arcade">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/arcade.gif">
+            <span>The Arcade</span>
+        </a>
+    </div>
+</div>
+
+<div class="box box-wide">
+    <div class="box-wrapper" style="margin: auto">
+        <a class="box-text" href="https://superfromnd.gitlab.io/about">
+            <img src="./Super&#39;s Cool Website for Rad Nerds_files/scooter.gif">
+            <span>About This Site...</span>
+        </a>
+    </div>
+</div>
+
+
+<br>
+<div style="margin-top:24px;">
+	<a style="height:auto;" href="https://superfromnd.gitlab.io/"><img src="./Super&#39;s Cool Website for Rad Nerds_files/button.gif"></a>
+	<pre style="font-size: 9px;display:inline-block;vertical-align:sub;">HTML: &lt;a href="https://superfromnd.gitlab.io"/&gt;&lt;img src="https://superfromnd.gitlab.io/img/button.gif"&gt;&lt;/a&gt;<br>BBCode: [url=https://superfromnd.gitlab.io/][img]https://superfromnd.gitlab.io/img/button.gif[/img][/url]
+	</pre>
+</div></body></html>

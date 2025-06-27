@@ -105,7 +105,15 @@ function appendMessage(message) {
   container.classList.add("message-container");
   const newMessage = document.createElement("div");
   newMessage.classList.add("message");
+  //newMessage.textContent = message.content;
+  // For assistant messages, apply formatting
+if (message.role === "assistant") {
+  const formatted = message.content.replace(/<think>(.*?)<\/think>/gs, '<span class="think">$1</span>');
+  newMessage.innerHTML = formatted;
+} else {
   newMessage.textContent = message.content;
+}
+
 
   if (message.role === "user") {
     container.classList.add("user");
@@ -123,8 +131,12 @@ function updateLastMessage(content) {
     .getElementById("chat-box")
     .querySelectorAll(".message");
   const lastMessageDom = messageDoms[messageDoms.length - 1];
-  lastMessageDom.textContent = content;
+
+  // Replace <think> tags with styled span
+  const formatted = content.replace(/<think>(.*?)<\/think>/gs, '<span class="think">$1</span>');
+  lastMessageDom.innerHTML = formatted;
 }
+
 
 /*************** UI binding ***************/
 availableModels.forEach((modelId) => {

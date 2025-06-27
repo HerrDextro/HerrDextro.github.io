@@ -1,0 +1,182 @@
+body {
+	background-color: #000;
+	color: #0f0;
+}
+
+.nobg {
+	background-color: #000 !important;
+}
+
+* {
+    color: inherit;
+    font-family: monospace;
+	max-width: 640px;
+	margin: auto;
+}
+
+.header, button, input, textarea, label, select {
+	margin: 4px;
+	border: 1px solid;
+	padding: 8px;
+	background-color: #020;
+	font-size: 16px;
+}
+
+table, td, th {
+	margin: auto;
+	padding: 5px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #0f0;
+}
+
+button:hover, label:hover {
+	background-color: #242;
+}
+
+button:active, label:active {
+	background-color: #0f0;
+	color: #000;
+}
+
+.block {
+	display: inline-block;
+}
+
+.red {
+	color: #f11;
+	background-color: #200;
+}
+
+.pink {
+	color: #f79;
+	background-color: #201;
+}
+
+.light-blue {
+	color: #7ff;
+	background-color: #122;
+}
+
+.blue {
+	color: #36f;
+	background-color: #001;
+}
+
+.green {
+	color: #0f0;
+	background-color: #020;
+}
+
+.lime {
+	color: #4f4;
+	background-color: #242;
+}
+
+.magenta {
+	color: #f0f;
+	background-color: #202;
+}
+
+.orange {
+	color: #f70;
+	background-color: #210;
+}
+
+.yellow {
+	color: #ff0;
+	background-color: #220;
+}
+
+.white {
+	color: #fff;
+	background-color: #222;
+}
+
+.subheader {
+	margin: 4px;
+	text-align: left;
+	padding: 8px;
+	font-size: 16px;
+}
+
+pre, ul {
+	text-align: left;
+	color: inherit
+}
+
+.batch {
+	text-align: left;
+	font-size: 12px;
+	margin: 4px;
+	border: 1px solid;
+	padding: 8px;
+	overflow: auto;
+}
+
+.optionbox {
+	text-align: left;
+	display: inline-block; 
+	width: 45%; 
+	max-width: 45%; 
+	font-size: 0.8em
+}
+
+.optionbox strong {
+	font-size: 1.25em;
+	vertical-align: text-bottom;
+}
+
+.minioptionbox {
+	display: inline-block; 
+	width: 20%; 
+	max-width: 45%; 
+	font-size: 0.9em
+}
+
+.code {
+	text-align: left;
+	font-size: 12px;
+	display: inline-flex;
+}
+
+input[type=color i] {
+	width: 50%; 
+	height: 3em;
+	padding: 0px;
+	border: none;
+	background-color: inherit;
+}
+
+/* scrollbar may not work in all browsers (webkit-scrollbar is non-standard!) */
+
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: #010; 
+    border: solid 0.1em #0f0;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #0a0; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2f2; 
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #050; 
+}
+
+::-webkit-scrollbar-button {
+	height: 16px;
+    background: #060; 
+    border: solid 1px #0f0;
+}
+
+::-webkit-scrollbar-button:hover {
+    background: #2f2; 
+}

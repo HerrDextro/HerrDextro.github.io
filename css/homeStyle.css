@@ -12,7 +12,8 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  
+  font-family: "Courier New", monospace;
   background: var(--base-black-color);
   color: white;
   padding: 1rem;
@@ -110,6 +111,12 @@ header {
   flex: 2;
 }
 
+.project-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 2;
+}
 
 .project-grid {
   display: grid;
@@ -162,6 +169,10 @@ footer {
     margin-bottom: 15px;
 }
 
+.link {
+  color: var(--green-color)
+}
+
 
 /* ----- Responsive tweaks ----- */
 
@@ -209,6 +220,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
 }
 
 #userInput {
@@ -290,7 +302,12 @@ footer {
 
 .message-container.assistant .message {
   background: var(--base-gray-color);
-  color: var(--base-gray-color);
+  color: white;
+}
+
+.think {
+  color: #ccc;
+  font-style: italic;
 }
 
 .chat-input-container {

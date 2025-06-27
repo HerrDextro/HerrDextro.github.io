@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>devtools</title>
+  <link rel="stylesheet" href="../css/subStyle.css">
+  <script src="../matrix.js"></script>
+</head>
+  <!-- Colors & Fonts -->
+  <style>
+    :root {
+      --green-color:  #00FF00;
+      --base-black-color: #1A1A1A;
+      --base-gray-color: #303030;
+      --white-color: #FFFFFF;
+    }
+
+    body {
+      background-color: var(--base-black-color);
+      color: var(--white-color);
+      font-family: "Courier New", monospace;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    canvas {
+      margin-top: 12px;
+    }
+
+    header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--base-black-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/*start of menu CSS*/
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
+  background: var(--base-gray-color);
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--base-gray-color);
+  border: 1px solid #444;
+  display: none;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 1rem;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #444;
+}
+
+.dropdown-menu a:hover {
+  background: var(--green-color);
+  color: black;
+}
+
+/*end of menu CSS*/
+
+
+.search input {
+  padding: 0.5rem;
+  background: var(--base-gray-color);
+  border: none;
+  color: white;
+}
+
+    .box {
+      border: 1px solid var(--box-border);
+      width: 305px;
+      height: 60px;
+      margin: 0;
+      padding: 2px;
+      text-align: left;
+      display: inline-flex;
+      background: var(--base-gray-color);
+      align-items: center;
+    }
+
+    .box-wide {
+      width: 627px;
+    }
+
+    .box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+
+    .box img {
+      height: 40px;
+      margin-right: 8px;
+    }
+
+    .box-text {
+      font-size: 13px;
+      color: var(--white-color);
+      text-decoration: none;
+    }
+
+    .box-text:hover {
+      color: var(--white-color);
+    }
+
+    footer {
+  text-align: center;
+  padding: 1rem;
+  background: #222;
+  margin-top: auto;
+}
+
+footer {
+    background-color: var(--base-gray-color);
+    color: white;
+    padding: 20px 0;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    border-bottom: 1px solid var(--green-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.link {
+  color: var(--green-color)
+}
+  </style>
+</head>
+<body>
+
+  <center>
+    <canvas id="header" width="640" height="160">
+      This website requires Canvas support to view properly.
+    </canvas>
+  </center>
+
+  <header>
+    <div class="menu-container">
+  <div class="menu-button" onclick="toggleMenu()">☰ Menu</div>
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="../index.html">Home</a>
+    <a href="../HTML/smartPainterGames.html">SmartPainter</a>
+    <a href="../HTML/llmTicTacToe.html">TicTacToe AI</a>
+    <a href="../HTML/llmGameAgent.html">Game Agent</a>
+    <a href="../HTML/gemmaReasoner.html">Gemma2 Reasoner</a>
+  </div>
+</div>
+    
+    <div class="search">
+      <input type="text" placeholder="Search">
+    </div>
+  </header>
+
+  <!-- Example Project Boxes -->
+  <div class="box-container">
+  <div class="box">
+    <a class="box-text" href="#">
+      <img src="your-icon.gif" alt="icon">
+      <span>Your Project Title</span>
+    </a>
+  </div>
+
+  <div class="box">
+    <a class="box-text" href="#">
+      <img src="your-icon.gif" alt="icon">
+      <span>Coming Soon</span>
+    </a>
+  </div>
+
+  <div class="box">
+    <a class="box-text" href="#">
+      <img src="your-icon.gif" alt="icon">
+      <span>Another Placeholder</span>
+    </a>
+  </div>
+
+  <div class="box box-wide">
+    <a class="box-text" href="#">
+      <img src="your-icon.gif" alt="icon">
+      <span>About This Site...</span>
+    </a>
+  </div>
+</div>
+
+
+   <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact me:</h3>
+                <p><a href="mailto:neo@dijkstras.net" class="link">neo@dijkstras.net</a></p>
+                <p><a href="tel:+41768310973" class="link">+41768310973</a></p>
+                
+                
+            </div>
+            <div class="footer-section">
+                <h3>Follow Me on GitHub</h3>
+                <div class="social-media">
+                    <a href="https://github.com/herrdextro" target="_blank" class="link">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

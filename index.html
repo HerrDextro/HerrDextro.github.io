@@ -7,21 +7,7 @@
   <script src="matrix.js"></script>
   <link rel="icon" href="resources/NeoMatrix2.ico" type="image/x-icon">
   <!--WebLLM integration-->
-  
-    <script type="module" src="chat_init.mjs"></script>
-
-  /*import { init, chat } from 'https://cdn.jsdelivr.net/npm/webllm@latest';
-
-  async function main() {
-    const model = await init('Llama-3-8B');
-    const response = await chat(model, 'What is WebLLM?');
-    console.log(response);
-  }
-
-  main();*/
-</script>
-
-
+  <script type="module" src="chat_init.mjs"></script>
 
 </head>
 <body>
@@ -51,18 +37,28 @@
     <div>This is a small site where I just keep my projects. Evidently so its also one I used to experiment with, and just nerd around a little....Hope you enjoy.</div>
   </section>
 
-  <main class="main-content">
+<main class="main-content">
+  <div class="project-section">
     <section class="projects">
-  <h2>Projects</h2> 
-  <div class="project-grid">
-    <div class="project-card searchable" onclick="navigateToTopic('HTML/smartPainterGames')">Smart Painter Games</div>
-    <div class="project-card searchable" onclick="navigateToTopic('HTML/llmTicTacToe')">LLM reasoner TicTacToe</div>
-    <div class="project-card searchable" onclick="navigateToTopic('HTML/llmGameAgent')">LLM game agent</div>
-    <div class="project-card searchable" onclick="navigateToTopic('HTML/gemmaReasoner')">Gemma2 Reasoner</div>
-  </div>
-</section>
+      <h2>About Me</h2>
+      <div class="project-grid">
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/personal')">Personal</div>
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/devtools')">DevTools</div>
+      </div>
+    </section>
 
-    <aside class="chat">
+    <section class="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/smartPainterGames')">Smart Painter Games</div>
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/llmTicTacToe')">LLM reasoner TicTacToe</div>
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/llmGameAgent')">LLM game agent</div>
+        <div class="project-card searchable" onclick="navigateToTopic('HTML/gemmaReasoner')">Gemma2 Reasoner</div>
+      </div>
+    </section>
+  </div>
+
+  <aside class="chat">
  <p>
       Initialize WebLLM and Download Model
     </p>
@@ -86,26 +82,22 @@
       </div>
     </div>
 </aside>
-
-    
-
-
-  </main>
+</main>
 
 
  <footer>
         <div class="footer-container">
             <div class="footer-section">
                 <h3>Contact me:</h3>
-                <p><a href="mailto:neo@dijkstras.net">neo@dijkstras.net</a></p>
-                <p><a href="tel:+41768310973">+41768310973</a></p>
+                <p><a href="mailto:neo@dijkstras.net" class="link">neo@dijkstras.net</a></p>
+                <p><a href="tel:+41768310973" class="link">+41768310973</a></p>
                 
                 
             </div>
             <div class="footer-section">
                 <h3>Follow Me on GitHub</h3>
                 <div class="social-media">
-                    <a href="https://github.com/herrdextro" target="_blank">GitHub</a>
+                    <a href="https://github.com/herrdextro" target="_blank" class="link">GitHub</a>
                 </div>
             </div>
         </div>
