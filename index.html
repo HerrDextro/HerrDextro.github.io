@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neo Apollos Dijkstra — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #EDE3CF;
+      --bg-card:  #E4D9C2;
+      --bg-dark:  #1C1005;
+      --text:     #1A100A;
+      --muted:    #7A6A55;
+      --accent:   #C4511C;
+      --amber:    #C8880A;
+      --green:    #4A6E4A;
+      --line:     rgba(26,16,10,0.14);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.6rem 3.5rem;
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding: 9rem 3.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.05s ease forwards;
+    }
+
+    .hero-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(5.5rem, 13.5vw, 15rem);
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.7s 0.15s ease forwards;
+    }
+
+    .hero-name em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-footer {
+      margin-top: 3rem;
+      display: flex;
+      gap: 5rem;
+      align-items: flex-end;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.3s ease forwards;
+    }
+
+    .hero-tagline {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 340px;
+      line-height: 1.55;
+    }
+
+    .hero-lang-list {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+    }
+
+    .hero-lang-list span {
+      color: var(--accent);
+      margin-right: 0.5em;
+    }
+
+    /* Decorative right-side vertical text */
+    .hero-vert {
+      position: absolute;
+      right: 3.5rem;
+      bottom: 8rem;
+      writing-mode: vertical-rl;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.35;
+    }
+
+    /* Decorative stamp box, top-right */
+    .hero-stamp {
+      position: absolute;
+      top: 6.5rem;
+      right: 3.5rem;
+      border: 1px solid var(--line);
+      padding: 1rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.45s ease forwards;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 6rem 3.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sec-label::after {
+      content: '';
+      flex: 1;
+      max-width: 180px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .sec-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-bio {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .about-bio p + p { margin-top: 1.1rem; }
+
+    .about-traits {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .trait {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trait-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .trait-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── SKILLS ── */
+    .skills-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .skills-group-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .skill-cat { margin-bottom: 1.8rem; }
+
+    .skill-cat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--line);
+      color: var(--text);
+      letter-spacing: 0.05em;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      cursor: default;
+    }
+
+    .tag:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .tag.ai { border-color: var(--amber); color: var(--amber); }
+    .tag.ai:hover { background: var(--amber); color: var(--bg); border-color: var(--amber); }
+
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 3.5rem;
+    }
+
+    .lang-cell {
+      background: var(--bg);
+      padding: 1.4rem 1.6rem;
+    }
+
+    .lang-cell-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .lang-cell-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── PROJECTS ── */
+    .filter-bar {
+      display: flex;
+      width: fit-content;
+      border: 1px solid var(--line);
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      border-right: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .filter-btn:last-child { border-right: none; }
+    .filter-btn.active, .filter-btn:hover { background: var(--text); color: var(--bg); }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .proj-card {
+      background: var(--bg);
+      padding: 2rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: background 0.18s;
+    }
+
+    .proj-card:hover { background: var(--bg-card); }
+
+    .proj-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .proj-cat.self-made { color: var(--accent); }
+    .proj-cat.poc       { color: var(--amber); }
+    .proj-cat.hardware  { color: var(--green); }
+
+    .proj-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.65rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .proj-desc {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .proj-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .proj-tech span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.45rem;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .proj-arrow {
+      align-self: flex-end;
+      font-size: 1.1rem;
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+
+    .proj-card:hover .proj-arrow { transform: translate(3px, -3px); }
+
+    /* ── MODAL ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 16, 10, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      max-width: 680px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      padding: 3rem;
+      position: relative;
+      transform: translateY(22px);
+      transition: transform 0.28s;
+    }
+
+    .overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--line);
+      padding: 0.38rem 0.75rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .modal-close:hover { background: var(--text); color: var(--bg); }
+
+    .modal-cat {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-cat.self-made { color: var(--accent); }
+    .modal-cat.poc       { color: var(--amber); }
+    .modal-cat.hardware  { color: var(--green); }
+
+    .modal-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 3.2rem;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1.8rem;
+    }
+
+    .modal-body {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .modal-body p + p { margin-top: 0.9rem; }
+
+    .modal-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 2rem 0;
+    }
+
+    .modal-meta { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .meta-row { display: flex; gap: 1.5rem; }
+
+    .meta-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 72px;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+
+    .meta-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+    }
+
+    .foot-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .foot-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">N · A · D</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-stamp">
+    IT Portfolio<br>
+    2026<br>
+    ───────<br>
+    Netherlands
+  </div>
+
+  <div class="hero-label">IT Student &amp; Builder</div>
+
+  <h1 class="hero-name">
+    Neo<br>
+    Apollos<br>
+    <em>Dijkstra</em>
+  </h1>
+
+  <div class="hero-footer">
+    <p class="hero-tagline">Systems builder. Multilingual thinker. Optimist about where the future is going.</p>
+    <div class="hero-lang-list">
+      <div><span>→</span>Deutsch</div>
+      <div><span>→</span>Nederlands</div>
+      <div><span>→</span>English</div>
+      <div><span>→</span>Español</div>
+      <div><span>→</span>Français</div>
+      <div><span>→</span>Italiano</div>
+    </div>
+  </div>
+
+  <div class="hero-vert">Development · AI · Hardware · Radio · 2026</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-label">01 — About</div>
+  <div class="sec-title">Who I Am</div>
+  <div class="about-grid">
+    <div class="about-bio">
+      <p>I'm Neo Apollos Dijkstra — an IT student with a wide technical range and a genuine belief that the future is something you participate in building. I work across the stack: C# backends, Python automation, Node.js services, and increasingly, AI-assisted workflows using tools like LangChain, n8n, and locally-run models.</p>
+      <p>Outside of code I collect militaria, operate amateur radio equipment, and train. Speaking six languages shapes how I approach problems — communication, structure, and context matter as much as the technical solution.</p>
+      <p>I'm comfortable under pressure, at home in abstraction, and prefer to ship something real over theorising about it.</p>
+    </div>
+    <div class="about-traits">
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Works well under pressure</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Technically driven</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Analytical thinker</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Multilingual (6 languages)</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Abstract reasoner</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">AI &amp; emerging tech enthusiast</span></div>
+      <div class="trait"><div class="trait-dot"></div><span class="trait-name">Licensed amateur radio operator</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label">02 — Skills</div>
+  <div class="sec-title">What I Know</div>
+
+  <div class="skills-split">
+    <!-- Conventional -->
+    <div>
+      <div class="skills-group-title">// Conventional development</div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">C#</span>
+          <span class="tag">Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML / CSS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Technologies</div>
+        <div class="skill-tags">
+          <span class="tag">ASP.NET</span>
+          <span class="tag">MS SQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Node.js</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Tools</div>
+        <div class="skill-tags">
+          <span class="tag">Git</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Postman</span>
+          <span class="tag">PowerShell</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI-Based -->
+    <div>
+      <div class="skills-group-title">// AI-based development</div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Agentic coding tools</div>
+        <div class="skill-tags">
+          <span class="tag ai">Claude Code</span>
+          <span class="tag ai">OpenCode</span>
+          <span class="tag ai">OpenClaw</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-label">Pipelines &amp; frameworks</div>
+        <div class="skill-tags">
+          <span class="tag ai">LangChain</span>
+          <span class="tag ai">n8n</span>
+          <span class="tag ai">MCP Servers</span>
+          <span class="tag ai">Firecrawl</span>
+          <span class="tag ai">Ollama</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spoken languages -->
+  <div class="lang-grid">
+    <div class="lang-cell">
+      <div class="lang-cell-name">Deutsch</div>
+      <div class="lang-cell-sub">German</div>
+    </div>
+    <div class="lang-cell">
+      <div class="lang-cell-name">Nederlands</div>
+      <div class="lang-cell-sub">Dutch</div>
+    </div>
+    <div class="lang-cell">
+      <div class="lang-cell-name">English</div>
+      <div class="lang-cell-sub">English</div>
+    </div>
+    <div class="lang-cell">
+      <div class="lang-cell-name">Español</div>
+      <div class="lang-cell-sub">Castilian Spanish</div>
+    </div>
+    <div class="lang-cell">
+      <div class="lang-cell-name">Français</div>
+      <div class="lang-cell-sub">French</div>
+    </div>
+    <div class="lang-cell">
+      <div class="lang-cell-name">Italiano</div>
+      <div class="lang-cell-sub">Italian</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">03 — Projects</div>
+  <div class="sec-title">What I've Built</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-f="all">All</button>
+    <button class="filter-btn" data-f="self-made">Built from scratch</button>
+    <button class="filter-btn" data-f="poc">Proof of concept</button>
+    <button class="filter-btn" data-f="hardware">Hardware</button>
+  </div>
+
+  <div class="proj-grid" id="grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="foot-name">Neo Apollos Dijkstra</span>
+  <span class="foot-mono">IT Portfolio · 2026</span>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="mclose">✕ Close</button>
+    <div class="modal-cat" id="mcat"></div>
+    <h2 class="modal-title" id="mtitle"></h2>
+    <div class="modal-body" id="mbody"></div>
+    <div class="modal-divider"></div>
+    <div class="modal-meta" id="mmeta"></div>
+  </div>
+</div>
+
+<script>
+  /* ── Project data — swap these out with your real projects ── */
+  const PROJECTS = [
+    {
+      id: 1,
+      title: "HAMLogger",
+      cat: "self-made",
+      catLabel: "Built from scratch",
+      desc: "A desktop QSO logging app for amateur radio, built from scratch in C# with a local SQL Server database.",
+      body: `<p>HAMLogger is a contact-logging application I built for my own use as a licensed amateur radio operator. It stores QSO (contact) records locally in a SQL Server database and provides filtering, export, and statistics views.</p>
+             <p>Built entirely in C# with WinForms and Entity Framework — no generators, no scaffolding. I knew the domain well and designed the schema myself. The result is something actually useful at my radio desk.</p>`,
+      tech: ["C#", "WinForms", "MS SQL", "Entity Framework"],
+      status: "Personal use — running"
+    },
+    {
+      id: 2,
+      title: "DevPortal",
+      cat: "self-made",
+      catLabel: "Built from scratch",
+      desc: "A self-hosted personal dashboard for monitoring local services, notes, and tool shortcuts — built with Node.js and MongoDB.",
+      body: `<p>A self-hosted internal dashboard I run locally to keep track of running services, notes, and quick-access links to tools I use daily. Node.js/Express backend, MongoDB for persistence, vanilla JS on the front.</p>
+             <p>No frameworks, no boilerplate. I built it because I was tired of keeping forty tabs open and none of the existing tools did exactly what I wanted.</p>`,
+      tech: ["Node.js", "Express", "MongoDB", "Vanilla JS"],
+      status: "Self-hosted — running"
+    },
+    {
+      id: 3,
+      title: "AutoDoc AI",
+      cat: "poc",
+      catLabel: "Proof of concept",
+      desc: "Had a good idea, wanted to build a proof of concept fast: auto-generate technical documentation from codebases using LangChain and Claude.",
+      body: `<p>The premise was simple — point it at a repository, let it read the structure and code, and output human-readable technical documentation. I wanted to see how far I could get before hitting a real wall.</p>
+             <p>It works well for small-to-medium Python and C# projects. The main engineering challenge was chunking context intelligently without losing structural coherence between modules.</p>`,
+      tech: ["Python", "LangChain", "Claude API", "Firecrawl"],
+      status: "Proof of concept"
+    },
+    {
+      id: 4,
+      title: "n8n Mail Triage",
+      cat: "poc",
+      catLabel: "Proof of concept",
+      desc: "Had a good idea, wanted to build a proof of concept fast: automatic inbox categorisation with n8n and a locally-running LLM via Ollama.",
+      body: `<p>An n8n automation workflow that reads incoming emails, runs them through a locally-hosted language model via Ollama, and categorises them — urgent, informational, or junk — with drafted replies for urgent items.</p>
+             <p>Built over a weekend to test whether local models were viable for this kind of task without sending data to a third party. They are, with the right system prompt and a decent model.</p>`,
+      tech: ["n8n", "Ollama", "Python", "REST API"],
+      status: "Proof of concept"
+    },
+    {
+      id: 5,
+      title: "SDR Weather Station",
+      cat: "hardware",
+      catLabel: "Hardware",
+      desc: "A software-defined radio setup that captures NOAA weather satellite passes overhead and decodes them into real satellite imagery.",
+      body: `<p>Using a cheap RTL-SDR USB dongle, a homemade V-dipole antenna, and a Raspberry Pi 4, I built a fully automated system that captures NOAA weather satellite passes and decodes the APT signal into actual satellite imagery.</p>
+             <p>The entire pipeline runs on the Pi: orbital pass prediction, signal recording, APT decoding, and image archiving. It runs on a cron job and I check the output remotely. Works well from a balcony antenna.</p>`,
+      tech: ["RTL-SDR", "Raspberry Pi", "Python", "Linux", "Amateur Radio"],
+      status: "Running"
+    },
+    {
+      id: 6,
+      title: "Pi Cluster",
+      cat: "hardware",
+      catLabel: "Hardware",
+      desc: "A 3-node Raspberry Pi cluster running Docker Swarm, used as a home lab for container orchestration and networking experiments.",
+      body: `<p>Three Raspberry Pi 4 units over a local switch, orchestrated with Docker Swarm as a lightweight alternative to Kubernetes for home lab use. I use it to test containerised deployments before touching real infrastructure.</p>
+             <p>Mostly useful for learning how distributed systems actually behave at small scale — and for breaking things in a controlled way. A few persistent services run on it continuously.</p>`,
+      tech: ["Raspberry Pi", "Docker Swarm", "Linux", "Networking"],
+      status: "Home lab — running"
+    }
+  ];
+
+  /* ── Render ── */
+  function render(filter) {
+    const grid = document.getElementById('grid');
+    const list = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === filter);
+    grid.innerHTML = list.map(p => `
+      <div class="proj-card" data-id="${p.id}">
+        <div class="proj-cat ${p.cat}">${p.catLabel}</div>
+        <div class="proj-title">${p.title}</div>
+        <div class="proj-desc">${p.desc}</div>
+        <div class="proj-tech">${p.tech.map(t => `<span>${t}</span>`).join('')}</div>
+        <div class="proj-arrow">↗</div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.proj-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const p = PROJECTS.find(x => x.id === +card.dataset.id);
+        openModal(p);
+      });
+    });
+  }
+
+  /* ── Filter buttons ── */
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.f);
+    });
+  });
+
+  /* ── Modal ── */
+  function openModal(p) {
+    document.getElementById('mcat').className = `modal-cat ${p.cat}`;
+    document.getElementById('mcat').textContent = p.catLabel;
+    document.getElementById('mtitle').textContent = p.title;
+    document.getElementById('mbody').innerHTML = p.body;
+    document.getElementById('mmeta').innerHTML = `
+      <div class="meta-row">
+        <span class="meta-label">Stack</span>
+        <span class="meta-value">${p.tech.join(' · ')}</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Status</span>
+        <span class="meta-value">${p.status}</span>
+      </div>
+    `;
+    document.getElementById('overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('mclose').addEventListener('click', closeModal);
+  document.getElementById('overlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  render('all');
+</script>
+</body>
+</html>
