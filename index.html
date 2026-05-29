@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neo Apollos Dijkstra — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════
+       NAVIGATION
+       ═══════════════════════════ -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">N · A · D</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════
+       HERO
+       ═══════════════════════════ -->
+  <header class="hero" id="hero">
+    <p class="hero-label">IT Student — Portfolio 2026</p>
+    <h1 class="hero-name">Neo Apollos Dijkstra</h1>
+    <p class="hero-sub">Developer · Builder</p>
+  </header>
+
+  <!-- ═══════════════════════════
+       ABOUT
+       ═══════════════════════════ -->
+  <section class="section" id="about">
+    <h2 class="section-heading">About</h2>
+    <div class="about-grid">
+
+      <div class="about-bio">
+        <p>I'm Neo Apollos Dijkstra, an IT student with a wide technical range and a genuine belief that the future is something you participate in building. I work across the stack: C# backends, Node.js services, and increasingly, AI-assisted workflows using tools like LangChain, n8n, OpenCode and locally-run models.</p>
+        <p>Outside of code I collect militaria, operate amateur radio equipment, and train. </p>
+
+      </div>
+
+      <ul class="about-traits">
+        <li>Technically driven</li>
+        <li>Analytical thinker</li>
+        <li>Multilingual — 4 languages</li>
+        <li>Abstract reasoner</li>
+        <li>AI &amp; emerging tech enthusiast</li>
+        <li>Electronics enthousiast</li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       SKILLS
+       ═══════════════════════════ -->
+  <section class="section section-alt" id="skills">
+    <h2 class="section-heading">Skills</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">Languages</h3>
+        <div class="skill-tags">
+          <span class="tag">C#</span>
+          <span class="tag">Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML / CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">Technologies</h3>
+        <div class="skill-tags">
+          <span class="tag">ASP.NET</span>
+          <span class="tag">MS SQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Node.js</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">Tools</h3>
+        <div class="skill-tags">
+          <span class="tag">Git</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Postman</span>
+          <span class="tag">PowerShell</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="skill-group-title">AI-Based Development</h3>
+        <div class="skill-tags">
+          <span class="tag tag-ai">Claude Code</span>
+          <span class="tag tag-ai">LangChain</span>
+          <span class="tag tag-ai">n8n</span>
+          <span class="tag tag-ai">Ollama</span>
+          <span class="tag tag-ai">MCP Servers</span>
+          <span class="tag tag-ai">Firecrawl</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════
+       PROJECTS
+       ═══════════════════════════ -->
+  <section class="section" id="projects">
+    <h2 class="section-heading">Projects</h2>
+
+    <!-- Tab buttons — JS reads data-tab to filter cards -->
+    <div class="project-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="software" role="tab" aria-selected="true">Software</button>
+      <button class="tab-btn"        data-tab="hardware" role="tab" aria-selected="false">Hardware</button>
+      <button class="tab-btn"        data-tab="agentic"  role="tab" aria-selected="false">Agentic</button>
+    </div>
+
+    <!-- Project cards are injected here by main.js -->
+    <div class="cards-grid" id="cards-grid"></div>
+
+  </section>
+
+  <!-- ═══════════════════════════
+       FOOTER
+       ═══════════════════════════ -->
+  <footer class="footer">
+    <span class="footer-name">Neo Apollos Dijkstra</span>
+    <span class="footer-year">Portfolio 2026</span>
+  </footer>
+
+
+  <!-- ╔═══════════════════════════════════════════════════════╗
+       ║  PROJECT DETAIL BLOCKS                               ║
+       ║                                                       ║
+       ║  These are hidden in the page.                        ║
+       ║  When a user clicks a card, the matching block       ║
+       ║  is copied into the modal popup by main.js.           ║
+       ║                                                       ║
+       ║  To add content to a project:                        ║
+       ║    1. Find the block by its id (e.g. id="detail-sdr") ║
+       ║    2. Add <img> tags inside .detail-photos           ║
+       ║    3. Add text inside .detail-description            ║
+       ║                                                       ║
+       ║  To add a new project:                               ║
+       ║    1. Copy any block below, give it a new id         ║
+       ║    2. Add a matching entry in main.js PROJECTS array  ║
+       ╚═══════════════════════════════════════════════════════╝ -->
+
+
+  <!-- ── SOFTWARE: s23bucket ── -->
+  <div class="project-detail" id="detail-s23bucket" hidden>
+    <span class="detail-category">Software — Built from scratch</span>
+    <h2 class="detail-title">s23bucket</h2>
+
+    <div class="detail-photos">
+      <!-- ADD PHOTOS HERE
+           Example:
+           <img src="photos/hamlogger-main.jpg" alt="HAMLogger main window">
+           <img src="photos/hamlogger-stats.jpg" alt="HAMLogger statistics view">
+      -->
+    </div>
+
+    <div class="detail-description">
+      <!-- ADD YOUR DESCRIPTION HERE -->
+      <p>I like privacy, control (of my own stuff) and trustworthyness. None of those can be given by giants like Google and Microsoft. Since I am building my own private ecosystem of tools, a private cloud file server is a must. The idea is to mirror google docs for personal users and also expose endpoints useful for services like Spotifake (Spotify clone coded by a friend)</p>
+      <!-- Add more <p> tags as needed -->
+    </div>
+
+    <div class="detail-tech">
+      <span class="tag">C#</span>
+      <span class="tag">ASP.NET</span>
+      <span class="tag">MongoDB</span>
+      <span class="tag">Docker</span>
+    </div>
+  </div>
+
+
+
+  <!-- ── HARDWARE: Development Hexacopter platform ── -->
+  <div class="project-detail" id="detail-hexacopter" hidden>
+    <span class="detail-category">Hardware</span>
+    <h2 class="detail-title">Hexacopter Drone development platform</h2>
+
+    <div class="detail-photos">
+      <!-- ADD PHOTOS HERE -->
+    </div>
+
+    <div class="detail-description">
+      <!-- ADD YOUR DESCRIPTION HERE -->
+      <p>A simple modular and transportable hexacopter drone for developing both hardware and software for drone use. So far a modular landing gear system has been built that allows virtually any kind of payload to be added to the drone.</p>
+    </div>
+
+    <div class="detail-tech">
+      <span class="tag">Ardupilot</span>
+      <span class="tag">Raspberry Pi</span>
+      <span class="tag">Python</span>
+      <span class="tag">Linux</span>
+      <span class="tag">RF</span>
+    </div>
+  </div>
+
+
+
+  <!-- ── AGENTIC: Nexus Dashboard ── -->
+  <div class="project-detail" id="detail-nexus-os" hidden>
+    <span class="detail-category">Agentic — Proof of concept</span>
+    <h2 class="detail-title">Nexus OS</h2>
+
+    <div class="detail-photos">
+      <!-- ADD PHOTOS HERE -->
+    </div>
+
+    <div class="detail-description">
+      <!-- ADD YOUR DESCRIPTION HERE -->
+      <p>Nexus OS is my answer to the incredibly undisciplined and chaotic nature of contemporary startups. When I joined the Zara team, I decided to build a completely centralised dashboard showing all our current projects/ideas, api keys and their costs/token usage, an AI driven agent with access to all our program documentation, coding session transcripts, and more.</p>
+    </div>
+
+    <div class="detail-tech">
+      <span class="tag tag-ai">OpenCode</span>
+      <span class="tag tag-ai">Supabase</span>
+      <span class="tag tag-ai">Vercel</span>
+      <span class="tag tag-ai">Tailwind CSS</span>
+      <span class="tag tag-ai">TS</span>
+    </div>
+  </div>
+
+
+  <!-- ── AGENTIC: quotli.ch ── -->
+  <div class="project-detail" id="detail-quotli" hidden>
+    <span class="detail-category">Agentic — Proof of concept</span>
+    <h2 class="detail-title">quotli.ch</h2>
+
+    <div class="detail-photos">
+      <!-- ADD PHOTOS HERE -->
+    </div>
+
+    <div class="detail-description">
+      <!-- ADD YOUR DESCRIPTION HERE -->
+      <p>I asked around trying to find out small annoying problems that people face daily and found out many, the one that caught my eyes was creating price quotas for self employed people like contractors. According to my research most use tools like excel and can spend hours a month just making quotas. So I decided I would try automate it with AI and make it even so easy that a quote can be created and sent still on the jobsite with only a phone and one hand free. The result of that is Quotli.ch, which turns natural language into a formatted quota ready to send. </p>
+    </div>
+
+    <div class="detail-tech">
+      <span class="tag tag-ai">OpenCode</span>
+      <span class="tag tag-ai">Supabase</span>
+      <span class="tag tag-ai">Vercel</span>
+      <span class="tag tag-ai">Clerk</span>
+      <span class="tag tag-ai">Tailwind CSS</span>
+      <span class="tag tag-ai">TS</span>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════
+       MODAL OVERLAY
+       The modal shell — content is injected by main.js
+       ═══════════════════════════ -->
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close" aria-label="Close popup">✕ Close</button>
+      <div class="modal-body" id="modal-body">
+        <!-- project detail content is cloned in here by openModal() in main.js -->
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
