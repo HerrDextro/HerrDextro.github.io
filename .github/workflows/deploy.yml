@@ -29,9 +29,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-        env:
-          # served from https://<user>.github.io/<repo>/ ; remove for a custom domain
-          BASE_PATH: /${{ github.event.repository.name }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build
