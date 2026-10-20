@@ -1,5 +1,5 @@
 node_modules/
 build/
 .svelte-kit/
-.CLAUDE.md
-.LEARN-SVELTE.md
+CLAUDE.md
+LEARN-SVELTE.md
