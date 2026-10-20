@@ -1,5 +1,7 @@
 node_modules/
 build/
 .svelte-kit/
-CLAUDE.md
-LEARN-SVELTE.md
+
+# notes for working on the site, not part of it
+/CLAUDE.md
+/LEARN-SVELTE.md
