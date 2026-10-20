@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="388" viewBox="0 0 720 388" font-family="ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace">
+<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0.6,0.8 L7.2,4 L0.6,7.2" fill="none" stroke="#1a1a1a" stroke-width="1.3" stroke-linejoin="round"/></marker></defs>
+<rect width="720" height="388" fill="#efefed"/>
+<rect x="12" y="12" width="696" height="54" fill="#c6bea9"/>
+<text x="26" y="44" font-size="13" fill="#1a1a1a">time controller</text>
+<text x="184" y="35" font-size="10.5" fill="#1a1a1a">forecasts generation and style times from the run so far,</text>
+<text x="184" y="51" font-size="10.5" fill="#1a1a1a">adjusts the explorer's population reduction every generation</text>
+<line x1="38" y1="66" x2="38" y2="158" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<line x1="682" y1="66" x2="682" y2="158" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<path d="M598,158 V118 H122 V158" fill="none" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+<text x="360.0" y="110" font-size="10.5" fill="#5a5a5a" text-anchor="middle">taboo: replaces explorer designs in a valley that's already found</text>
+<rect x="12.5" y="160.5" width="149" height="93" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+<text x="23" y="184" font-size="13" fill="#1a1a1a">explorer</text>
+<text x="23" y="203" font-size="10.5" fill="#1a1a1a">L-SHADE</text>
+<text x="23" y="222" font-size="10" fill="#5a5a5a">open search,</text>
+<text x="23" y="237" font-size="10" fill="#5a5a5a">20 parameters</text>
+<line x1="165" y1="207.0" x2="191" y2="207.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<rect x="194.5" y="160.5" width="149" height="93" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+<text x="205" y="184" font-size="13" fill="#1a1a1a">clustering</text>
+<text x="205" y="203" font-size="10.5" fill="#1a1a1a">HDBSCAN</text>
+<text x="205" y="222" font-size="10" fill="#5a5a5a">groups good designs</text>
+<text x="205" y="237" font-size="10" fill="#5a5a5a">into candidates</text>
+<line x1="347" y1="207.0" x2="373" y2="207.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<rect x="376.5" y="160.5" width="149" height="93" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+<text x="387" y="184" font-size="13" fill="#1a1a1a">hill-valley test</text>
+<text x="387" y="203" font-size="10.5" fill="#1a1a1a">3 designs between</text>
+<text x="387" y="222" font-size="10" fill="#5a5a5a">two candidates:</text>
+<text x="387" y="237" font-size="10" fill="#5a5a5a">ridge = new valley</text>
+<line x1="529" y1="207.0" x2="555" y2="207.0" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<rect x="558.5" y="160.5" width="149" height="93" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+<text x="569" y="184" font-size="13" fill="#1a1a1a">styles</text>
+<text x="569" y="203" font-size="10.5" fill="#1a1a1a">one CMA-ES run each</text>
+<text x="569" y="222" font-size="10" fill="#5a5a5a">developed to the max</text>
+<text x="569" y="237" font-size="10" fill="#5a5a5a">at the end</text>
+<rect x="12" y="304" width="696" height="40" fill="#1a1a1a"/>
+<text x="360.0" y="329" font-size="12" fill="#efefed" text-anchor="middle">AWS workers · 192 cores · NEC2 · ~70 solves per design</text>
+<line x1="82.0" y1="257" x2="82.0" y2="301" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<line x1="92.0" y1="301" x2="92.0" y2="257" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<text x="103.0" y="283.0" font-size="10" fill="#5a5a5a">designs / scores</text>
+<line x1="446.0" y1="257" x2="446.0" y2="301" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<line x1="456.0" y1="301" x2="456.0" y2="257" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<text x="467.0" y="283.0" font-size="10" fill="#5a5a5a">3 per test</text>
+<line x1="628.0" y1="257" x2="628.0" y2="301" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<line x1="638.0" y1="301" x2="638.0" y2="257" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#ah)"/>
+<text x="360.0" y="368" font-size="10" fill="#5a5a5a" text-anchor="middle">whole search state saved after every batch · final ranking also counts buildability</text>
+</svg>
