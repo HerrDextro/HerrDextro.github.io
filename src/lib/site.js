@@ -5,7 +5,7 @@
 
 export const site = {
   name: 'Neo Dijkstra',
-  version: '1.7.0',
+  version: '1.7.1',
   birthDate: '2006-08-10T00:00:00Z', // drives the live age counter
 
   /* Intro animation for the first visit of a session; after that every

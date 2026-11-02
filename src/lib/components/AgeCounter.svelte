@@ -3,7 +3,8 @@
   // Every tube is a 10 × 15 pixel drawing (glass, dark inside, the unlit
   // cathodes of all ten digits, a socket), with the lit digit drawn on top
   // in orange plus a ring of darker orange pixels as its glow. Everything is
-  // one SVG; on each tick only the digits change.
+  // one SVG; on each tick only the digits change. Between the whole years and
+  // the decimals sits a narrow tube with a glowing colon.
   import { onMount } from 'svelte';
   import { site } from '$lib/site.js';
 
@@ -29,7 +30,7 @@
   const GAP = 1; // pixels between tubes
   const H = 17; // tube + socket + plinth
   const DX = 2, DY = 3; // where the digit sits inside the tube
-  const DOT = [8, 11]; // the decimal point (bottom right, like an IN-12B)
+  const SEP_W = 6; // the narrow colon tube
 
   // colours of a physical object: the same in light and dark mode
   const C = {
@@ -47,10 +48,10 @@
   const px = (pts) => pts.map(([x, y]) => `M${x} ${y}h1v1h-1z`).join('');
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
   const cells = (rows) => rows.flatMap((r, y) => [...r].flatMap((ch, x) => (ch === '#' ? [[x + DX, y + DY]] : [])));
-  const isInside = (x, y) => x >= 1 && x <= 8 && y >= 2 && y <= 12;
+  const insideOf = (w) => (x, y) => x >= 1 && x <= w - 2 && y >= 2 && y <= 12;
 
   // a lit glyph and its glow: the inside pixels directly above, below, left and right of it
-  function litPaths(points) {
+  function litPaths(points, isInside = insideOf(W)) {
     const on = new Set(points.map(([x, y]) => `${x},${y}`));
     const glow = new Set();
     for (const [x, y] of points)
@@ -61,28 +62,40 @@
     return { lit: px(points), glow: px([...glow].map((k) => k.split(',').map(Number))) };
   }
   const DIGITS = Object.fromEntries(Object.entries(GLYPHS).map(([d, rows]) => [d, litPaths(cells(rows))]));
-  const DOT_PATHS = litPaths([DOT]);
 
-  // the tube itself: glass dome and walls, the dark inside, a shine on the glass,
-  // all ten cathodes unlit, and the socket
-  const unlitCells = new Set(Object.values(GLYPHS).flatMap((rows) => cells(rows).map((p) => p.join(','))));
-  const TUBE = {
-    glass: px([...range(3, 6).map((x) => [x, 0]), [1, 1], [2, 1], [7, 1], [8, 1], ...range(2, 12).flatMap((y) => [[0, y], [9, y]])]),
-    inside: px([...range(3, 6).map((x) => [x, 1]), ...range(2, 12).flatMap((y) => range(1, 8).map((x) => [x, y]))]),
-    shine: px(range(3, 7).map((y) => [1, y])),
-    unlit: px([...unlitCells].map((k) => k.split(',').map(Number))),
-    socketTop: px(range(0, 9).map((x) => [x, 13])),
-    socket: px(range(0, 9).map((x) => [x, 14]))
+  // a tube w pixels wide: glass dome and walls, the dark inside, a shine on the glass, the socket
+  const tube = (w) => {
+    const a = w >= 8 ? 3 : 2; // where the dome starts
+    return {
+      glass: px([...range(a, w - 1 - a).map((x) => [x, 0]), ...range(1, a - 1).map((x) => [x, 1]), ...range(w - a, w - 2).map((x) => [x, 1]), ...range(2, 12).flatMap((y) => [[0, y], [w - 1, y]])]),
+      inside: px([...range(a, w - 1 - a).map((x) => [x, 1]), ...range(2, 12).flatMap((y) => range(1, w - 2).map((x) => [x, y]))]),
+      shine: px(range(3, 7).map((y) => [1, y])),
+      socketTop: px(range(0, w - 1).map((x) => [x, 13])),
+      socket: px(range(0, w - 1).map((x) => [x, 14]))
+    };
   };
+  // digit tubes also show all ten cathodes, unlit, behind the lit one
+  const unlitCells = new Set(Object.values(GLYPHS).flatMap((rows) => cells(rows).map((p) => p.join(','))));
+  const TUBE = { ...tube(W), unlit: px([...unlitCells].map((k) => k.split(',').map(Number))) };
+  // the colon tube: two 2 × 2 dots
+  const SEP = tube(SEP_W);
+  const COLON = litPaths([[2, 4], [3, 4], [2, 5], [3, 5], [2, 9], [3, 9], [2, 10], [3, 10]], insideOf(SEP_W));
 
   /* ---------- the number ---------- */
   const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let decimals = $state(12); // phones: 7 (20.2328278), set in onMount
   let value = $state(age().toFixed(12));
 
-  const digits = $derived(value.replace('.', '').split(''));
-  const dotAfter = $derived(value.indexOf('.') - 1); // tube that carries the decimal point
-  const width = $derived(digits.length * (W + GAP) - GAP);
+  // every tube with its x position: digits, and the colon where the decimal point is
+  const tubes = $derived.by(() => {
+    let x = 0;
+    return [...value].map((ch) => {
+      const t = { ch, x };
+      x += (ch === '.' ? SEP_W : W) + GAP;
+      return t;
+    });
+  });
+  const width = $derived(tubes.length ? tubes.at(-1).x + W : W);
 
   onMount(() => {
     const narrow = window.matchMedia('(max-width: 640px)');
@@ -113,18 +126,18 @@
 >
   <title>Live: years since I was born</title>
   <path d="M0 15h{width}v2h-{width}z" fill={C.plinth} />
-  {#each digits as d, i}
-    <g transform="translate({i * (W + GAP)} 0)">
-      <path d={TUBE.inside} fill={C.inside} />
-      <path d={TUBE.unlit} fill={C.unlit} />
-      <path d={DIGITS[d].glow} fill={C.glow} />
-      {#if i === dotAfter}<path d={DOT_PATHS.glow} fill={C.glow} />{/if}
-      <path d={DIGITS[d].lit} fill={C.lit} />
-      {#if i === dotAfter}<path d={DOT_PATHS.lit} fill={C.lit} />{/if}
-      <path d={TUBE.glass} fill={C.glass} />
-      <path d={TUBE.shine} fill={C.shine} />
-      <path d={TUBE.socketTop} fill={C.socketTop} />
-      <path d={TUBE.socket} fill={C.socket} />
+  {#each tubes as { ch, x }}
+    {@const t = ch === '.' ? SEP : TUBE}
+    {@const lit = ch === '.' ? COLON : DIGITS[ch]}
+    <g transform="translate({x} 0)">
+      <path d={t.inside} fill={C.inside} />
+      {#if t.unlit}<path d={t.unlit} fill={C.unlit} />{/if}
+      <path d={lit.glow} fill={C.glow} />
+      <path d={lit.lit} fill={C.lit} />
+      <path d={t.glass} fill={C.glass} />
+      <path d={t.shine} fill={C.shine} />
+      <path d={t.socketTop} fill={C.socketTop} />
+      <path d={t.socket} fill={C.socket} />
     </g>
   {/each}
 </svg>

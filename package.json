@@ -1,6 +1,6 @@
 {
   "name": "neo-portfolio-bentogrid",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "private": true,
   "type": "module",
   "description": "Neo Dijkstra's portfolio: SvelteKit bento grid with a cellular-automata intro",
