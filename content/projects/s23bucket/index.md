@@ -4,7 +4,7 @@ slug: "s23bucket"
 summary: "Self-hosted file server: ASP.NET Core API, files in MongoDB GridFS, a virtual folder tree, JWT auth."
 status: "in-progress"
 status_note: "Auth and the core file API work and are tested; sharing, renaming and the external-service flow aren't built yet."
-approach: "mixed"
+approach: "manual"
 approach_note: "I designed and wrote most of the code; AI explained concepts, reviewed my code and wrote the last round of fixes."
 context: "personal"
 team_size: 1

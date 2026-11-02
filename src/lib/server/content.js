@@ -33,7 +33,7 @@ export const STATUS = {
 export const APPROACH = {
   'hand-built': 'Hand-built',
   'ai-assisted': 'Vibecode',
-  mixed: 'Mixed'
+  'manual': 'Manual',
 };
 export const CONTEXT = { personal: 'Personal project', school: 'School project' };
 export const TAGS = {

@@ -1,4 +1,4 @@
-# Neo Dijkstra, portfolio v1.6.0 (bento grid)
+# Neo Dijkstra, portfolio v1.7.0 (bento grid)
 
 SvelteKit rebuild of the v6 prototype. It has one scrolling main page: a cellular-automata intro, then a bento grid. Projects and the collection have their own pages. Everything is static HTML, ready for GitHub Pages. English only.
 
@@ -165,4 +165,4 @@ Drop the PDF into `static/cv/`. That's all: no code to change.
 - New look: pixel grid, bento tiles with stepped corners, Sofia Sans plus Sofia Sans Extra Condensed, light and dark mode.
 - The scroll reveals, education reel and colour panels are gone. Everything is on one page as tiles.
 - English only. The German `.de.md` files and German strings are still in `neo-portfolio-v6.1.0` if you want them back later.
-- The version (now 1.6.0) is in `package.json` and in `src/lib/site.js` (shown in the page title and footer).
+- The version (now 1.7.0) is in `package.json` and in `src/lib/site.js` (shown in the page title and footer).
