@@ -109,7 +109,7 @@
     <section class="tile w2 pixel-corners next">
       <span class="muted">Back to</span>
       <h2 class="tile-title"><a class="tile-link" href="{base}/projects/">All projects</a></h2>
-      <p class="muted">Each project is tagged with its real status and with how it was made: by hand, or AI-assisted.</p>
+      <p class="muted">Each project is tagged with its real status and with how it was made: by hand, mixed, or vibecoded.</p>
       <span class="go" aria-hidden="true"></span>
     </section>
   </div>

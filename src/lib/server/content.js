@@ -32,14 +32,14 @@ export const STATUS = {
 };
 export const APPROACH = {
   'hand-built': 'Hand-built',
-  'ai-assisted': 'AI-assisted',
+  'ai-assisted': 'Vibecode',
   mixed: 'Mixed'
 };
 export const CONTEXT = { personal: 'Personal project', school: 'School project' };
 export const TAGS = {
   hardware: 'Hardware', embedded: 'Embedded', rf: 'RF', networking: 'Networking',
   backend: 'Backend', frontend: 'Frontend', fullstack: 'Fullstack', desktop: 'Desktop',
-  mobile: 'Mobile', algorithms: 'Algorithms', tooling: 'Tooling', ai: 'AI'
+  mobile: 'Mobile', algorithms: 'Algorithms', tooling: 'Tooling', ai: 'AI', security: 'Security', manual: 'Manual'
 };
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -244,7 +244,9 @@ function readProject(slug) {
   const started = ym(meta.started);
   const ended = ym(meta.ended);
   const dir = `projects/${slug}`;
-  const cover = meta.cover ? resolveImage(dir, meta.cover) : null;
+  // a cover named in the frontmatter but not in the folder yet: "Screenshot to come"
+  const coverMissing = !!meta.cover && !fs.existsSync(path.join(ROOT, dir, meta.cover));
+  const cover = meta.cover && !coverMissing ? resolveImage(dir, meta.cover) : null;
 
   return {
     slug,
@@ -266,7 +268,11 @@ function readProject(slug) {
     tags: (meta.tags ?? []).map((t) => ({ id: t, label: TAGS[t] })),
     stack: meta.stack ?? [],
     links: (meta.links ?? []).filter((l) => l?.url),
-    cover: cover ? { ...cover, alt: meta.cover_alt ?? '', placeholder: !!meta.stand_in_images } : null,
+    cover: cover
+      ? { ...cover, alt: meta.cover_alt ?? '', placeholder: !!meta.stand_in_images }
+      : coverMissing
+        ? { alt: meta.cover_alt ?? '', placeholder: true }
+        : null,
     standIn: !!meta.stand_in_images,
     body
   };

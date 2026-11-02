@@ -6,7 +6,7 @@ slug: "your-slug"            # same as the folder name
 summary: "TODO: one line, max 110 characters, shown on the card"
 status: "in-progress"        # done | in-progress | paused | planned
 status_note: "TODO: one honest line on the real current state"
-approach: "hand-built"       # hand-built | ai-assisted | mixed
+approach: "hand-built"       # hand-built | ai-assisted (shown as "Vibecode") | mixed
 approach_note: "TODO: one line, what AI did vs. what I did"
 context: "personal"          # personal | school
 team_size: 1
@@ -14,7 +14,8 @@ role: ""                     # only if team_size > 1
 started: "2026-01"           # YYYY-MM
 ended: ""                    # YYYY-MM, or "" if not finished
 tags: ["hardware"]           # hardware, embedded, rf, networking, backend, frontend,
-                             # fullstack, desktop, mobile, algorithms, tooling, ai
+                             # fullstack, desktop, mobile, algorithms, tooling, ai, security,
+                             # manual (mostly handcoded)
 stack: ["C#"]
 cover: "cover.jpg"           # put cover.jpg / .png / .webp in this folder
 cover_alt: "TODO: what the cover photo shows"

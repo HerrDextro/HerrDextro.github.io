@@ -25,6 +25,8 @@ function walk(dir) {
       if (todos) gaps.push(`${rel}: ${todos} TODO marker${todos > 1 ? 's' : ''}`);
       if (images) gaps.push(`${rel}: ${images} image placeholder${images > 1 ? 's' : ''}`);
       if (/^stand_in_images:\s*true/m.test(text)) gaps.push(`${rel}: stand_in_images is still true (replace the stand-in pictures)`);
+      const cover = text.match(/^cover:\s*"?([^"\s#]+)"?/m);
+      if (cover && !fs.existsSync(path.join(path.dirname(p), cover[1]))) gaps.push(`${rel}: cover image ${cover[1]} is not in the folder yet`);
     }
   }
 }

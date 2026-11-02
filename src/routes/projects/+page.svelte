@@ -19,7 +19,7 @@
   <div class="bento">
     <header class="tile w4 pixel-corners head">
       <h1>What I've built</h1>
-      <p class="lead">Each project is tagged with its real status and with how it was made: by hand, or AI-assisted.</p>
+      <p class="lead">Each project is tagged with its real status and with how it was made: by hand, mixed, or vibecoded.</p>
       <div class="filter" role="group" aria-label="Filter by domain">
         <button type="button" aria-pressed={tag === 'all'} onclick={() => (tag = 'all')}>All</button>
         {#each data.tags as t}
